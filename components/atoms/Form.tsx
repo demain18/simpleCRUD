@@ -17,6 +17,7 @@ export default function ({ children, placeholder, ...rest }: Props) {
       placeholderTextColor="#94a3b8"
       onChangeText={onChangeText}
       value={text}
+      autoCapitalize="none"
     />
   );
 }

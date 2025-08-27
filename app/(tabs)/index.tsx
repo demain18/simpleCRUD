@@ -1,14 +1,19 @@
 import Form from "@/components/atoms/Form";
 import StyledButton from "@/components/atoms/StyledButton";
-import LoginForm from "@/components/organisms/login/loginForm";
+import LoginForm from "@/components/organisms/login/LoginForm";
 import { useEffect } from "react";
 import { Appearance, Button, Text, View } from "react-native";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import {
+  GestureHandlerRootView,
+  ScrollView,
+} from "react-native-gesture-handler";
 
 export default function Index() {
   return (
     <GestureHandlerRootView>
-      <LoginForm />
+      <ScrollView contentContainerStyle={{ flex: 1, justifyContent: "center" }}>
+        <LoginForm />
+      </ScrollView>
     </GestureHandlerRootView>
   );
 }
