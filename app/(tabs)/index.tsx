@@ -2,7 +2,15 @@ import Form from "@/components/atoms/Form";
 import StyledButton from "@/components/atoms/StyledButton";
 import LoginForm from "@/components/organisms/login/LoginForm";
 import { useEffect } from "react";
-import { Appearance, Button, Text, View } from "react-native";
+import {
+  Appearance,
+  Button,
+  KeyboardAvoidingView,
+  Platform,
+  Text,
+  View,
+  StyleSheet,
+} from "react-native";
 import {
   GestureHandlerRootView,
   ScrollView,
@@ -10,10 +18,23 @@ import {
 
 export default function Index() {
   return (
-    <GestureHandlerRootView>
-      <ScrollView contentContainerStyle={{ flex: 1, justifyContent: "center" }}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.keyboardView}
+    >
+      <ScrollView contentContainerStyle={styles.scrollView}>
         <LoginForm />
       </ScrollView>
-    </GestureHandlerRootView>
+    </KeyboardAvoidingView>
   );
 }
+
+const styles = StyleSheet.create({
+  keyboardView: {
+    flex: 1,
+  },
+  scrollView: {
+    flex: 1,
+    justifyContent: "center",
+  },
+});

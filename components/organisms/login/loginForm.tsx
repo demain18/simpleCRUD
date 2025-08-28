@@ -1,5 +1,6 @@
 import Form from "@/components/atoms/Form";
 import StyledButton from "@/components/atoms/StyledButton";
+import { useState } from "react";
 import { Text, View, StyleSheet, Image } from "react-native";
 
 export interface Props {
@@ -7,6 +8,21 @@ export interface Props {
 }
 
 export default function LoginForm({ children, ...rest }: Props) {
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const handleUsername = (text: string) => {
+    setUsername(text);
+  };
+
+  const handlePassword = (text: string) => {
+    setPassword(text);
+  };
+
+  const handleLogin = () => {
+    console.log(username, password);
+  };
+
   return (
     <View style={styles.loginWrap}>
       <View style={styles.logoWrap}>
@@ -17,11 +33,20 @@ export default function LoginForm({ children, ...rest }: Props) {
         <Text style={styles.logoText}>SimpleCRUD</Text>
       </View>
       <View style={styles.gap16}>
-        <Form placeholder="Username" />
-        <Form placeholder="Password" />
+        <Form
+          placeholder="Username"
+          text={username}
+          onChangeText={handleUsername}
+        />
+        <Form
+          placeholder="Password"
+          password
+          text={password}
+          onChangeText={handlePassword}
+        />
       </View>
       <View style={styles.marginTop24}>
-        <StyledButton text="Login" />
+        <StyledButton text="Login" onPress={handleLogin} />
       </View>
       <StyledButton text="Go to Registration" outline />
     </View>

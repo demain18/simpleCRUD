@@ -5,11 +5,19 @@ import React from "react";
 export interface Props {
   children?: React.ReactNode;
   placeholder?: string;
+  password?: boolean;
+  text?: string;
+  onChangeText?: (text: string) => void;
 }
 
-export default function ({ children, placeholder, ...rest }: Props) {
-  const [text, onChangeText] = React.useState("");
-
+export default function ({
+  children,
+  placeholder,
+  password,
+  text,
+  onChangeText,
+  ...rest
+}: Props) {
   return (
     <TextInput
       style={styles.input}
@@ -18,6 +26,7 @@ export default function ({ children, placeholder, ...rest }: Props) {
       onChangeText={onChangeText}
       value={text}
       autoCapitalize="none"
+      secureTextEntry={password}
     />
   );
 }
