@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
     paddingRight: 27,
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "#fff",
   },
   registerTitle: {
     color: colors.black,

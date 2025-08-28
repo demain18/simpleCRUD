@@ -29,6 +29,7 @@ export default function Register({ children, ...rest }: Props) {
 const styles = StyleSheet.create({
   keyboardView: {
     flex: 1,
+    backgroundColor: "#fff",
   },
   scrollView: {
     flex: 1,
