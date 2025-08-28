@@ -38,3 +38,4 @@ yarn-error.*
 
 app-example
 assets/images/firebase-tools-instant-win.exe
+.env

@@ -1,7 +1,8 @@
 import Form from "@/components/atoms/Form";
 import StyledButton from "@/components/atoms/StyledButton";
+import { getAllUsers } from "@/hooks/apiRequest";
 import { router } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Text, View, StyleSheet, Image } from "react-native";
 
 export interface Props {
