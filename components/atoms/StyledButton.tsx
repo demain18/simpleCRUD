@@ -2,14 +2,12 @@ import { colors } from "@/hooks/colorScheme";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 
 export interface Props {
-  children?: string;
   text?: string;
   outline?: boolean;
   onPress?: () => void;
 }
 
 export default function StyledButton({
-  children,
   text,
   outline,
   onPress,
@@ -29,12 +27,7 @@ const styles = StyleSheet.create({
   button: {
     cursor: "pointer",
     width: "100%",
-    height: 44,
-    paddingTop: 12,
-    paddingRight: 8,
-    paddingBottom: 12,
-    paddingLeft: 8,
-    borderWidth: 0,
+    height: 48,
     borderStyle: "solid",
     boxSizing: "border-box",
     borderTopLeftRadius: 12,
@@ -53,8 +46,8 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins",
     color: colors.white,
     textAlign: "center",
-    lineHeight: 20,
     outline: "none",
+    lineHeight: 48,
   },
   outlineText: {
     color: colors.black,

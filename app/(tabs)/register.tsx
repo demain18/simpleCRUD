@@ -1,9 +1,11 @@
+import RegisterForm from "@/components/organisms/register/RegisterForm";
 import {
   Text,
   View,
   StyleSheet,
   KeyboardAvoidingView,
   Platform,
+  ScrollView,
 } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
@@ -17,7 +19,9 @@ export default function Register({ children, ...rest }: Props) {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.keyboardView}
     >
-      <Text>This is register page</Text>
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        <RegisterForm />
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 }
