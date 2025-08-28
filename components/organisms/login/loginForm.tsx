@@ -1,5 +1,6 @@
 import Form from "@/components/atoms/Form";
 import StyledButton from "@/components/atoms/StyledButton";
+import { router } from "expo-router";
 import { useState } from "react";
 import { Text, View, StyleSheet, Image } from "react-native";
 
@@ -48,7 +49,11 @@ export default function LoginForm({ children, ...rest }: Props) {
       <View style={styles.marginTop24}>
         <StyledButton text="Login" onPress={handleLogin} />
       </View>
-      <StyledButton text="Go to Registration" outline />
+      <StyledButton
+        text="Go to Registration"
+        outline
+        onPress={() => router.push("/(tabs)/register")}
+      />
     </View>
   );
 }

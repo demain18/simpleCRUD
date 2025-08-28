@@ -17,7 +17,7 @@ export default function Register({ children, ...rest }: Props) {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.keyboardView}
     >
-      This is register page
+      <Text>This is register page</Text>
     </KeyboardAvoidingView>
   );
 }
