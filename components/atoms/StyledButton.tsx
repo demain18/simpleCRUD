@@ -4,21 +4,39 @@ import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 export interface Props {
   text?: string;
   outline?: boolean;
+  fitContent?: boolean;
+  height?: number;
   onPress?: () => void;
 }
 
 export default function StyledButton({
   text,
   outline,
+  fitContent,
+  height = 48,
   onPress,
   ...rest
 }: Props) {
   return (
     <TouchableOpacity
-      style={[styles.button, outline && styles.outlineButton]}
+      style={[
+        styles.button,
+        outline && styles.outlineButton,
+        fitContent && styles.fitButton,
+        { height: height },
+      ]}
       onPress={onPress}
     >
-      <Text style={[styles.text, outline && styles.outlineText]}>{text}</Text>
+      <Text
+        style={[
+          styles.text,
+          outline && styles.outlineText,
+
+          { lineHeight: height },
+        ]}
+      >
+        {text}
+      </Text>
     </TouchableOpacity>
   );
 }
@@ -26,14 +44,12 @@ export default function StyledButton({
 const styles = StyleSheet.create({
   button: {
     cursor: "pointer",
-    width: "100%",
-    height: 48,
     borderStyle: "solid",
     boxSizing: "border-box",
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
-    borderBottomRightRadius: 12,
-    borderBottomLeftRadius: 12,
+    borderTopLeftRadius: 17,
+    borderTopRightRadius: 17,
+    borderBottomRightRadius: 17,
+    borderBottomLeftRadius: 17,
     borderColor: colors.black,
     backgroundColor: colors.primary,
   },
@@ -41,13 +57,21 @@ const styles = StyleSheet.create({
     borderColor: "none",
     backgroundColor: "none",
   },
+  fitButton: {
+    alignSelf: "flex-start",
+    paddingLeft: 13,
+    paddingRight: 13,
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    borderBottomRightRadius: 25,
+    borderBottomLeftRadius: 25,
+  },
   text: {
     fontSize: 14,
     fontFamily: "Poppins",
     color: colors.white,
     textAlign: "center",
     outline: "none",
-    lineHeight: 48,
   },
   outlineText: {
     color: colors.black,
