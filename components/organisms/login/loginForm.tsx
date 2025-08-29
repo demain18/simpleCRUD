@@ -1,6 +1,10 @@
 import Form from "@/components/atoms/Form";
 import StyledButton from "@/components/atoms/StyledButton";
-import { getAllUsers } from "@/hooks/apiRequest";
+import {
+  checkUserExist,
+  checkUserExistDto,
+  getAllUsers,
+} from "@/hooks/apiRequest";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { Text, View, StyleSheet, Image } from "react-native";
@@ -21,8 +25,18 @@ export default function LoginForm({ children, ...rest }: Props) {
     setPassword(text);
   };
 
-  const handleLogin = () => {
-    console.log(username, password);
+  const handleLogin = async () => {
+    const loginData: checkUserExistDto = { username, password };
+
+    const res = await checkUserExist(loginData);
+    console.log(res);
+
+    if (Array.isArray(res) && res.length > 0) {
+      console.log("로그인 성공");
+      router.push("/board");
+    } else {
+      console.log("로그인에 실패했습니다");
+    }
   };
 
   return (
@@ -53,7 +67,7 @@ export default function LoginForm({ children, ...rest }: Props) {
       <StyledButton
         text="Go to Registration"
         outline
-        onPress={() => router.push("/(tabs)/register")}
+        onPress={() => router.push("/register")}
       />
     </View>
   );

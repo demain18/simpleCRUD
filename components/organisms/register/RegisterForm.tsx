@@ -1,11 +1,8 @@
 import Form from "@/components/atoms/Form";
 import StyledButton from "@/components/atoms/StyledButton";
-import {
-  getAllUsers,
-  insertUserData,
-  insertUserDataDto,
-} from "@/hooks/apiRequest";
+import { getAllUsers, insertUserData, insertUserDto } from "@/hooks/apiRequest";
 import { colors } from "@/hooks/colorScheme";
+import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
 
@@ -32,9 +29,11 @@ export default function RegisterForm({ children, ...rest }: Props) {
 
   const handleRegister = () => {
     console.log(username, email, password);
-    const userdata: insertUserDataDto = { username, email, password };
+    const userdata: insertUserDto = { username, email, password };
 
     insertUserData(userdata);
+
+    router.navigate("/");
   };
 
   useEffect(() => {

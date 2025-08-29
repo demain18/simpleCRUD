@@ -7,18 +7,35 @@ const supabase = createClient(
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5naGJtZHVhcWN1amNrdWNub2ZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY0NDk5MzIsImV4cCI6MjA3MjAyNTkzMn0.w0C6HMYOGJjO-K1DzX_9avKkktmvLlqHJgaXD4nqn9w"
 );
 
-export interface insertUserDataDto {
+export interface insertUserDto {
   username: string;
   email: string;
+  password: string;
+}
+
+export interface checkUserExistDto {
+  username: string;
   password: string;
 }
 
 export const getAllUsers = async () => {
   const { data, error } = await supabase.from("users").select("*");
 
+  return error ? console.error(error) : (data as []);
+};
+
+export const insertUserData = async (userdata: insertUserDto) => {
+  const { data, error } = await supabase.from("users").insert(userdata);
+
   return error ? console.error(error) : data;
 };
 
-export const insertUserData = async (data: insertUserDataDto) => {
-  const { error } = await supabase.from("users").insert(data);
+export const checkUserExist = async (loginData: checkUserExistDto) => {
+  const { data, error } = await supabase
+    .from("users")
+    .select("id")
+    .eq("username", loginData.username)
+    .eq("password", loginData.password);
+
+  return error ? console.error(error) : (data as []);
 };
