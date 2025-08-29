@@ -8,12 +8,7 @@ export interface Props {}
 export default function Gnb({ ...rest }: Props) {
   return (
     <View style={styles.gnbStyled}>
-      <View
-        style={[
-          styles.contentWrap,
-          Platform.OS === "ios" && styles.gnbTopPadding,
-        ]}
-      >
+      <View style={[styles.contentWrap]}>
         <GnbLogo />
         <GnbMenu />
       </View>
@@ -35,9 +30,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     paddingTop: 8,
     paddingBottom: 8,
-  },
-  gnbTopPadding: {
-    paddingTop: 40,
   },
   contentWrap: {
     // flex: 1,

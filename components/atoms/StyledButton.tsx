@@ -31,7 +31,6 @@ export default function StyledButton({
         style={[
           styles.text,
           outline && styles.outlineText,
-
           { lineHeight: height },
         ]}
       >
