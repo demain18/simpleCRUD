@@ -1,6 +1,5 @@
 import { Stack } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-// import "@/firebase";
 
 export default function RootLayout() {
   return (
