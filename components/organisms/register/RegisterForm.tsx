@@ -1,5 +1,6 @@
 import Form from "@/components/atoms/Form";
 import StyledButton from "@/components/atoms/StyledButton";
+import { getAllUsers } from "@/hooks/apiRequest";
 import { colors } from "@/hooks/colorScheme";
 import { useEffect, useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
@@ -25,10 +26,12 @@ export default function RegisterForm({ children, ...rest }: Props) {
     setPassword(text);
   };
 
-  const handleLogin = () => {
+  const handleRegister = () => {
     console.log(username, email, password);
     const userdata = { username, email, password };
   };
+
+  const data = getAllUsers();
 
   useEffect(() => {}, []);
 
@@ -50,7 +53,7 @@ export default function RegisterForm({ children, ...rest }: Props) {
         />
       </View>
       <View style={styles.buttonWrap}>
-        <StyledButton text="Register" onPress={handleLogin} />
+        <StyledButton text="Register" onPress={handleRegister} />
       </View>
     </View>
   );

@@ -1,45 +1,21 @@
-// import firestore from "@react-native-firebase/firestore";
-// import "@/firebase";
+import { createClient } from "@supabase/supabase-js";
 
-// export interface getAllUsersDto {
-//   username: string;
-//   email: string;
-//   password: string;
-// }
+const key: string = process.env.EXPO_PUBLIC_API_KEY!;
 
-// export interface addUserDto {
-//   username: string;
-//   email: string;
-//   password: string;
-// }
+const supabase = createClient(
+  "https://nghbmduaqcujckucnofm.supabase.co",
+  //   process.env.EXPO_PUBLIC_API_KEY! <= .env 값 가져오는거 시점이 달라서 그런건지 await이라서 로드시점이 다른지 오류 오지게 나서 임시로 key값 그냥 가져옴
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5naGJtZHVhcWN1amNrdWNub2ZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY0NDk5MzIsImV4cCI6MjA3MjAyNTkzMn0.w0C6HMYOGJjO-K1DzX_9avKkktmvLlqHJgaXD4nqn9w"
+);
 
-// export const getAllUsers = async () => {
-//   try {
-//     const usersCollection = await firestore().collection("clients").get();
+export const getAllUsers = async () => {
+  const { data, error } = await supabase.from("users").select("*");
 
-//     const usersData: getAllUsersDto[] = usersCollection.docs.map((doc) => {
-//       const data = doc.data();
-//       return {
-//         id: doc.id,
-//         username: data.username,
-//         email: data.email,
-//         password: data.password,
-//       } as getAllUsersDto;
-//     });
+  if (error) {
+    console.error("요청 실패", error);
+  }
 
-//     return usersData;
-//   } catch (error) {
-//     console.error("데이터 조회 중 오류가 발생했습니다:", error);
-//   }
-// };
+  console.log("요청 성공", data);
 
-// export const addUser = async (id: string, userdata: addUserDto) => {
-//   try {
-//     await firestore().collection("clients").doc(id).set(userdata);
-//     console.log(`클라이언트가 ID '${id}'로 성공적으로 추가되었습니다.`);
-//     return id;
-//   } catch (error) {
-//     console.error("클라이언트 추가 중 오류가 발생했습니다:", error);
-//     throw error;
-//   }
-// };
+  return data;
+};
