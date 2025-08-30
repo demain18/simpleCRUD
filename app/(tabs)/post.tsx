@@ -16,7 +16,6 @@ export default function Post({ ...rest }: Props) {
   useEffect(() => {
     (async () => {
       const data = await getPost(id);
-      //   console.log(data);
 
       if (Array.isArray(data) && data.length > 0) {
         setPostData(data[0]);
@@ -24,7 +23,7 @@ export default function Post({ ...rest }: Props) {
         setPostData(null);
       }
 
-      console.log(postData);
+      // console.log(postData);
     })();
   }, []);
 

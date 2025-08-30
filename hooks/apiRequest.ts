@@ -57,5 +57,5 @@ export const getAllPosts = async () => {
 export const getPost = async (id: string) => {
   const { data, error } = await supabase.from("posts").select("*").eq("id", id);
 
-  return error ? console.error(error) : (data as []);
+  return error ? console.error(error) : data;
 };
