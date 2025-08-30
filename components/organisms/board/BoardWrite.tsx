@@ -23,5 +23,6 @@ const styles = StyleSheet.create({
     paddingLeft: 12,
     paddingRight: 12,
     boxShadow: "border-box",
+    zIndex: 2,
   },
 });

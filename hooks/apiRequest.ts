@@ -39,3 +39,9 @@ export const checkUserExist = async (loginData: checkUserExistDto) => {
 
   return error ? console.error(error) : (data as []);
 };
+
+export const getAllPosts = async () => {
+  const { data, error } = await supabase.from("posts").select("*");
+
+  return error ? console.error(error) : (data as []);
+};
