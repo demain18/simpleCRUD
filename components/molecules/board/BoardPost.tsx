@@ -10,10 +10,6 @@ export interface Props {
 }
 
 export default function BoardPost({ id, imgsrc, title, desc, ...rest }: Props) {
-  const moveToPost = (postId: number) => {
-    router.push(`/post?postid=${postId}`);
-  };
-
   return (
     <TouchableOpacity
       style={styles.postStyled}
