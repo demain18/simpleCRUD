@@ -9,11 +9,9 @@ import {
 } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-export interface Props {
-  children?: React.ReactNode;
-}
+export interface Props {}
 
-export default function Register({ children, ...rest }: Props) {
+export default function Register({ ...rest }: Props) {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}

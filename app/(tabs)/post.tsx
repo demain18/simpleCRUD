@@ -8,22 +8,17 @@ export interface Props {}
 
 export default function Post({ ...rest }: Props) {
   return (
-    <View style={styles.containerView}>
+    <View style={styles.postWrap}>
       <Gnb />
-      <ScrollView contentContainerStyle={styles.scrollView}>
-        <PostContents />
-        {/* <PostComments /> */}
-      </ScrollView>
+      <PostContents />
+      {/* <PostComments /> */}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  containerView: {
+  postWrap: {
     flex: 1,
     backgroundColor: colors.bgGray,
-  },
-  scrollView: {
-    justifyContent: "center",
   },
 });
