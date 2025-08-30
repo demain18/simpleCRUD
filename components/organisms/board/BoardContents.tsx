@@ -26,7 +26,9 @@ export default function BoardContents({ ...rest }: Props) {
             "https://dlfqevhpjinkmluhnxfv.supabase.co/storage/v1/object/public/post_images/placeholder.jpg"
           }
           title={item.title}
-          desc={item.desc}
+          desc={
+            item.desc.length > 50 ? item.desc.slice(0, 50) + "..." : item.desc
+          }
         />
       )}
     ></FlatList>

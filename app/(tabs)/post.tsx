@@ -12,7 +12,7 @@ export default function Post({ ...rest }: Props) {
       <Gnb />
       <ScrollView contentContainerStyle={styles.scrollView}>
         <PostContents />
-        <PostComments />
+        {/* <PostComments /> */}
       </ScrollView>
     </View>
   );
