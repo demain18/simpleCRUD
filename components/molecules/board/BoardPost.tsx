@@ -1,15 +1,26 @@
 import { colors } from "@/hooks/colorScheme";
+import { router } from "expo-router";
 import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 
 export interface Props {
+  id?: number;
   imgsrc?: string;
   title?: string;
   desc?: string;
 }
 
-export default function BoardPost({ imgsrc, title, desc, ...rest }: Props) {
+export default function BoardPost({ id, imgsrc, title, desc, ...rest }: Props) {
+  const moveToPost = (postId: number) => {
+    router.push(`/post?postid=${postId}`);
+  };
+
   return (
-    <TouchableOpacity style={styles.postStyled}>
+    <TouchableOpacity
+      style={styles.postStyled}
+      onPress={() => {
+        router.push(`/post?id=${id}`);
+      }}
+    >
       <View style={styles.postContentWrap}>
         <Image style={styles.imgStyled} source={{ uri: imgsrc || "" }}></Image>
         <View style={styles.contentWrap}>

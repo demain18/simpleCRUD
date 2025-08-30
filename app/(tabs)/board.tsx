@@ -3,6 +3,7 @@ import BoardWrite from "@/components/organisms/board/BoardWrite";
 import Gnb from "@/components/organisms/gnb/Gnb";
 import { getAllPosts } from "@/hooks/apiRequest";
 import { colors } from "@/hooks/colorScheme";
+import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { Text, View, StyleSheet, SafeAreaView } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
@@ -10,6 +11,8 @@ import { FlatList } from "react-native-gesture-handler";
 export interface Props {}
 
 export interface postDataDto {
+  id: number;
+  created_at: string;
   uploader: string;
   title: string;
   desc: string;
@@ -22,7 +25,7 @@ export default function Board({ ...rest }: Props) {
     (async () => {
       const data = await getAllPosts();
       setPostData(data);
-      console.log(postData);
+      console.log(data);
     })();
   }, []);
 
@@ -36,8 +39,9 @@ export default function Board({ ...rest }: Props) {
           data={postData!}
           renderItem={({ item }: { item: postDataDto }) => (
             <BoardPost
+              id={item.id}
               imgsrc={
-                "https://community.softr.io/uploads/db9110/original/2X/7/74e6e7e382d0ff5d7773ca9a87e6f6f8817a68a6.jpeg"
+                "https://dlfqevhpjinkmluhnxfv.supabase.co/storage/v1/object/public/post_images/placeholder.jpg"
               }
               title={item.title}
               desc={item.desc}

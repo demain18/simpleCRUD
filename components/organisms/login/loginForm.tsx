@@ -33,7 +33,7 @@ export default function LoginForm({ children, ...rest }: Props) {
 
     if (Array.isArray(res) && res.length > 0) {
       console.log("로그인 성공");
-      router.push("/board");
+      router.navigate("/board");
     } else {
       console.log("로그인에 실패했습니다");
     }
