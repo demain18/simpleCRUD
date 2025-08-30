@@ -1,7 +1,7 @@
 import BoardPost from "@/components/molecules/board/BoardPost";
 import BoardWrite from "@/components/organisms/board/BoardWrite";
 import Gnb from "@/components/organisms/gnb/Gnb";
-import { getAllPosts } from "@/hooks/apiRequest";
+import { getAllPosts, postDataDto } from "@/hooks/apiRequest";
 import { colors } from "@/hooks/colorScheme";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
@@ -10,22 +10,15 @@ import { FlatList } from "react-native-gesture-handler";
 
 export interface Props {}
 
-export interface postDataDto {
-  id: number;
-  created_at: string;
-  uploader: string;
-  title: string;
-  desc: string;
-}
-
 export default function Board({ ...rest }: Props) {
   const [postData, setPostData] = useState<postDataDto[] | void>([]);
 
   useEffect(() => {
     (async () => {
       const data = await getAllPosts();
-      setPostData(data);
       console.log(data);
+
+      setPostData(data);
     })();
   }, []);
 
