@@ -9,7 +9,13 @@ export interface Props {
   desc?: string;
 }
 
-export default function BoardPost({ id, imgsrc, title, desc, ...rest }: Props) {
+export default function BoardContentsPost({
+  id,
+  imgsrc,
+  title,
+  desc,
+  ...rest
+}: Props) {
   return (
     <TouchableOpacity
       style={styles.postStyled}

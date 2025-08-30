@@ -10,8 +10,6 @@ export default function GnbLogo({ ...rest }: Props) {
   const currentRoute = route.name;
   const routeName = currentRoute.split(/[/-]/).pop();
 
-  console.log(routeName);
-
   return (
     <TouchableOpacity
       style={styles.logoWrap}

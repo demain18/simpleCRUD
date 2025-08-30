@@ -7,7 +7,7 @@ export interface Props {
   datetime?: string;
 }
 
-export default function PostHeader({
+export default function PostContentsHeader({
   title,
   writer,
   datetime,
@@ -29,18 +29,21 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto",
     fontWeight: "700",
     lineHeight: 32,
+    marginBottom: 8,
   },
   writer: {
     color: colors.black,
     fontSize: 14,
     fontFamily: "Roboto",
     lineHeight: 20,
+    marginBottom: 4,
   },
   datetime: {
     color: colors.black,
     fontSize: 12,
     fontFamily: "Roboto",
-    fontWeight: "500",
+    fontWeight: 500,
     lineHeight: 16,
+    marginBottom: 16,
   },
 });
