@@ -1,11 +1,15 @@
 import StyledButton from "@/components/atoms/StyledButton";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Platform } from "react-native";
 
 export interface Props {}
 
 export default function BoardWrite({ ...rest }: Props) {
+  const deviceOS = Platform.OS;
+
   return (
-    <View style={styles.mainWrap}>
+    <View
+      style={[styles.mainWrap, deviceOS !== "web" && { paddingBottom: 30 }]}
+    >
       <StyledButton text="Write New Post" height={38} />
     </View>
   );

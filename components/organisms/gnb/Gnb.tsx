@@ -6,8 +6,10 @@ import { Text, View, StyleSheet, Image, Platform } from "react-native";
 export interface Props {}
 
 export default function Gnb({ ...rest }: Props) {
+  const deviceOS = Platform.OS;
+
   return (
-    <View style={styles.gnbStyled}>
+    <View style={[styles.gnbStyled, deviceOS !== "web" && { paddingTop: 45 }]}>
       <View style={[styles.contentWrap]}>
         <GnbLogo />
         <GnbMenu />

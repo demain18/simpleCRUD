@@ -13,14 +13,18 @@ export interface Props {}
 
 export default function Board({ ...rest }: Props) {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
-      <View style={{ flex: 1, backgroundColor: colors.bgGray }}>
-        <Gnb />
-        <BoardWrite />
-        <BoardContents />
-      </View>
-    </SafeAreaView>
+    <View style={styles.boardWrap}>
+      <Gnb />
+      <BoardContents />
+      <BoardWrite />
+    </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  boardWrap: {
+    flex: 1,
+    backgroundColor: colors.bgGray,
+    paddingBottom: 78,
+  },
+});
