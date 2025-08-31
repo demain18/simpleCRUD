@@ -5,11 +5,12 @@ import { insertPost, insertPostDto } from "@/hooks/apiRequest";
 import { colors, tempValues } from "@/hooks/colorScheme";
 import { loadUsername } from "@/hooks/customHooks";
 import { uploadImage } from "@/hooks/uploadFiles";
-import { decode } from "base64-arraybuffer";
 import { router } from "expo-router";
 import { useState } from "react";
-import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
-import { launchImageLibrary } from "react-native-image-picker";
+import { View, StyleSheet, Image, Alert, Linking } from "react-native";
+
+// react-native-image-picker 대신 expo-image-picker를 가져옵니다.
+import * as ImagePicker from "expo-image-picker";
 
 export interface Props {}
 
@@ -37,28 +38,41 @@ export default function WritePost({ ...rest }: Props) {
     }
   };
 
-  const onSelectImage = () => {
-    launchImageLibrary(
-      {
-        mediaType: "photo",
-        maxWidth: 512,
-        maxHeight: 512,
-        includeBase64: true,
-      },
-      async (res) => {
-        console.log(res);
-        if (res.didCancel) {
-          return;
-        } else if (res.errorCode) {
-          console.log("Image Error : " + res.errorCode);
+  const onSelectImage = async () => {
+    // 권한 상태 확인 및 요청
+    const { status } = await ImagePicker.getMediaLibraryPermissionsAsync();
+
+    if (status !== "granted") {
+      Alert.alert(
+        "권한 요청",
+        "사진첩 접근 권한이 필요합니다. 설정으로 이동하여 권한을 허용해 주세요.",
+        [
+          { text: "취소", style: "cancel" },
+          { text: "설정으로 이동", onPress: () => Linking.openSettings() },
+        ]
+      );
+      return;
+    }
+
+    const res = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+      base64: true, // base64 데이터 포함
+    });
+
+    console.log(res);
+
+    if (!res.canceled && res.assets && res.assets.length > 0) {
+      const imageData = res.assets[0].base64;
+      if (imageData) {
+        const receivedUri = await uploadImage(imageData);
+        if (receivedUri) {
+          setImgUri(receivedUri);
         }
-
-        const imageData = res.assets![0].base64!;
-
-        const recivedUri = await uploadImage(imageData);
-        setImgUri(recivedUri!);
       }
-    );
+    }
   };
 
   return (
@@ -69,7 +83,6 @@ export default function WritePost({ ...rest }: Props) {
           source={{
             uri: imgUri || tempValues.placeholderImg,
           }}
-          // source={require("@/assets/images/placeholder.jpg")}
         />
         <View style={styles.uploadBtnWrap}>
           <StyledButton
