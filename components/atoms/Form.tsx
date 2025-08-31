@@ -3,24 +3,24 @@ import { colors } from "@/hooks/colorScheme";
 import React from "react";
 
 export interface Props {
-  children?: React.ReactNode;
   placeholder?: string;
   password?: boolean;
   text?: string;
+  fill?: boolean;
   onChangeText?: (text: string) => void;
 }
 
 export default function ({
-  children,
   placeholder,
   password,
   text,
+  fill,
   onChangeText,
   ...rest
 }: Props) {
   return (
     <TextInput
-      style={styles.input}
+      style={[styles.input, fill && styles.filledInput]}
       placeholder={placeholder}
       placeholderTextColor="#94a3b8"
       onChangeText={onChangeText}
@@ -47,11 +47,14 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 12,
     borderBottomRightRadius: 12,
     borderBottomLeftRadius: 12,
-    backgroundColor: "#f8f8f8",
+    backgroundColor: colors.whiteGray,
     color: colors.black,
     fontSize: 14,
     fontFamily: "Poppins",
     outline: "none",
     justifyContent: "center",
+  },
+  filledInput: {
+    flex: 1,
   },
 });

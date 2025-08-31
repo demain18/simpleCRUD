@@ -1,16 +1,5 @@
-import Form from "@/components/atoms/Form";
-import StyledButton from "@/components/atoms/StyledButton";
 import LoginForm from "@/components/organisms/login/LoginForm";
-import { useEffect } from "react";
-import {
-  Appearance,
-  Button,
-  KeyboardAvoidingView,
-  Platform,
-  Text,
-  View,
-  StyleSheet,
-} from "react-native";
+import { KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
 import {
   GestureHandlerRootView,
   ScrollView,

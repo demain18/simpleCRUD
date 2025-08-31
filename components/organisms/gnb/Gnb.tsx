@@ -21,7 +21,6 @@ export default function Gnb({ ...rest }: Props) {
 const styles = StyleSheet.create({
   gnbStyled: {
     width: "100%",
-    height: "auto",
     backgroundColor: "#fff",
     shadowOffset: {
       width: 2,

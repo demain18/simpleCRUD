@@ -1,3 +1,4 @@
+import { getRouteName } from "@/hooks/customHooks";
 import { useRoute } from "@react-navigation/native";
 import { router, useNavigation } from "expo-router";
 import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
@@ -6,9 +7,7 @@ export interface Props {}
 
 export default function GnbLogo({ ...rest }: Props) {
   const navigation = useNavigation();
-  const route = useRoute(); // useRoute 훅을 사용해 현재 라우트 객체를 가져옵니다.
-  const currentRoute = route.name;
-  const routeName = currentRoute.split(/[/-]/).pop();
+  const routeName = getRouteName();
 
   return (
     <TouchableOpacity
