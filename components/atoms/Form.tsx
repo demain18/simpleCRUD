@@ -1,12 +1,13 @@
-import { Appearance, StyleSheet, TextInput } from "react-native";
 import { colors } from "@/hooks/colorScheme";
 import React from "react";
+import { StyleSheet, TextInput } from "react-native";
 
 export interface Props {
   placeholder?: string;
   password?: boolean;
   text?: string;
   fill?: boolean;
+  flex?: boolean;
   onChangeText?: (text: string) => void;
 }
 
@@ -15,12 +16,17 @@ export default function ({
   password,
   text,
   fill,
+  flex = false,
   onChangeText,
   ...rest
 }: Props) {
   return (
     <TextInput
-      style={[styles.input, fill && styles.filledInput]}
+      style={[
+        styles.input,
+        fill && styles.filledInput,
+        flex ? { flex: 1 } : { width: "100%" },
+      ]}
       placeholder={placeholder}
       placeholderTextColor="#94a3b8"
       onChangeText={onChangeText}
@@ -33,7 +39,6 @@ export default function ({
 
 const styles = StyleSheet.create({
   input: {
-    width: "100%",
     height: 46,
     paddingTop: 0,
     paddingRight: 8,

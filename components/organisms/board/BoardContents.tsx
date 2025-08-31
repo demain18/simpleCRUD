@@ -3,20 +3,24 @@ import { getAllPosts, readPostDto } from "@/hooks/apiRequest";
 import { tempValues } from "@/hooks/colorScheme";
 import { removeLinebreaks } from "@/hooks/customHooks";
 import { useFocusEffect } from "@react-navigation/native";
-import { useEffect, useState } from "react";
-import { Text, View, StyleSheet, FlatList } from "react-native";
+import { useCallback, useState } from "react";
+import { FlatList, StyleSheet } from "react-native";
 
 export interface Props {}
 
 export default function BoardContents({ ...rest }: Props) {
   const [postData, setPostData] = useState<readPostDto[] | void>([]);
 
-  useFocusEffect(() => {
-    (async () => {
-      const data = await getAllPosts();
-      setPostData(data);
-    })();
-  });
+  const getBoardPosts = async () => {
+    const data = await getAllPosts();
+    setPostData(data);
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      getBoardPosts();
+    }, [])
+  );
 
   return (
     <FlatList
