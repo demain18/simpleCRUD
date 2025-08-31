@@ -1,15 +1,10 @@
 import Form from "@/components/atoms/Form";
 import StyledButton from "@/components/atoms/StyledButton";
-import {
-  checkUserExist,
-  checkUserExistDto,
-  getAllUsers,
-} from "@/hooks/apiRequest";
+import { checkUserExist, checkUserExistDto } from "@/hooks/apiRequest";
 import { loadUsername, saveUsername } from "@/hooks/customHooks";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import { Text, View, StyleSheet, Image } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 
 export interface Props {
   children?: React.ReactNode;
@@ -28,15 +23,21 @@ export default function LoginForm({ children, ...rest }: Props) {
   };
 
   const handleLogin = async () => {
+    // 사용자가 입력한 useState값 받아옴
     const loginData: checkUserExistDto = { username, password };
-    const res = await checkUserExist(loginData);
+    // 계정이 존재하는지 검사
+    const result = await checkUserExist(loginData);
+    // 로그인 프로세스 실행
+    loginProcess(result);
+  };
 
-    if (Array.isArray(res) && res.length > 0) {
-      console.log("로그인 성공");
+  const loginProcess = async (result: any) => {
+    // 받아온 데이터 유효성 검사
+    if (Array.isArray(result) && result.length > 0) {
+      const usernameLoaded = await loadUsername();
 
-      const usernameAsync = await loadUsername();
-
-      if (usernameAsync === null) {
+      // 아직 저장된 store 값이 없으면 새롭게 저장하고 로그인 실행
+      if (usernameLoaded === null) {
         saveUsername(username);
         router.navigate("/board");
       }
@@ -45,14 +46,14 @@ export default function LoginForm({ children, ...rest }: Props) {
     }
   };
 
-  const isLogin = async () => {
-    const usernameAsync = await loadUsername();
-
-    usernameAsync !== null && router.navigate("/board");
+  const alreadyLoginCheck = async () => {
+    const usernameLoaded = await loadUsername();
+    usernameLoaded !== null && router.navigate("/board");
   };
 
   useEffect(() => {
-    isLogin();
+    // 컴포넌트 로드시 이미 로그인 되었는지 검사
+    alreadyLoginCheck();
   });
 
   return (
