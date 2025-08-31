@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
   },
   contentWrap: {
-    // flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
     paddingLeft: 16,

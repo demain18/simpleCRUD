@@ -6,19 +6,18 @@ import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 export interface Props {}
 
 export default function GnbLogo({ ...rest }: Props) {
-  const navigation = useNavigation();
   const routeName = getRouteName();
 
   return (
     <TouchableOpacity
       style={styles.logoWrap}
       onPress={() => {
-        routeName === "board" || navigation.goBack();
+        routeName === "board" || router.push("/board");
       }}
     >
       <Image
         style={styles.logoImg}
-        source={require("@/assets/images/simpleCRUDlogo.png")}
+        source={require("@/assets/images/logo.png")}
       />
 
       <Text style={styles.logoText}>simpleCRUD</Text>
@@ -28,6 +27,7 @@ export default function GnbLogo({ ...rest }: Props) {
 
 const styles = StyleSheet.create({
   logoWrap: {
+    height: 35,
     flexWrap: "nowrap",
     flexDirection: "row",
     alignItems: "center",

@@ -26,7 +26,7 @@ export default function GnbMenu({ ...rest }: Props) {
       )}
       <Image
         style={styles.menuImg}
-        source={require("@/assets/images/user-circle.png")}
+        source={require("@/assets/images/logout.png")}
       />
     </View>
   );

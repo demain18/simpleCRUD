@@ -44,7 +44,7 @@ export default function LoginForm({ children, ...rest }: Props) {
       <View style={styles.logoWrap}>
         <Image
           style={styles.logoImg}
-          source={require("@/assets/images/simpleCRUDlogo.png")}
+          source={require("@/assets/images/logo.png")}
         />
         <Text style={styles.logoText}>SimpleCRUD</Text>
       </View>
