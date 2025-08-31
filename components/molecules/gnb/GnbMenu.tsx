@@ -1,7 +1,8 @@
 import StyledButton from "@/components/atoms/StyledButton";
 import { getRouteName } from "@/hooks/customHooks";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
-import { Text, View, StyleSheet, Image } from "react-native";
+import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 
 export interface Props {}
 
@@ -12,7 +13,10 @@ export default function GnbMenu({ ...rest }: Props) {
 
   const routeName = getRouteName();
 
-  console.log("routename", routeName);
+  const onLogout = () => {
+    AsyncStorage.clear();
+    router.navigate("/");
+  };
 
   return (
     <View style={styles.menuWrap}>
@@ -24,10 +28,12 @@ export default function GnbMenu({ ...rest }: Props) {
           onPress={goToWrite}
         />
       )}
-      <Image
-        style={styles.menuImg}
-        source={require("@/assets/images/logout.png")}
-      />
+      <TouchableOpacity onPress={onLogout}>
+        <Image
+          style={styles.menuImg}
+          source={require("@/assets/images/logout.png")}
+        />
+      </TouchableOpacity>
     </View>
   );
 }

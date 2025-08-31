@@ -18,7 +18,7 @@ export default function Write({ ...rest }: Props) {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={{ flex: 1 }}
+      style={styles.container}
     >
       <View style={styles.mainWrap}>
         <Gnb />
@@ -29,6 +29,9 @@ export default function Write({ ...rest }: Props) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   mainWrap: {
     flex: 1,
     backgroundColor: "#fff",

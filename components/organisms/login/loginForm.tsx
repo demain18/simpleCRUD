@@ -5,6 +5,8 @@ import {
   checkUserExistDto,
   getAllUsers,
 } from "@/hooks/apiRequest";
+import { loadUsername, saveUsername } from "@/hooks/customHooks";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { Text, View, StyleSheet, Image } from "react-native";
@@ -27,17 +29,31 @@ export default function LoginForm({ children, ...rest }: Props) {
 
   const handleLogin = async () => {
     const loginData: checkUserExistDto = { username, password };
-
     const res = await checkUserExist(loginData);
-    console.log(res);
 
     if (Array.isArray(res) && res.length > 0) {
       console.log("로그인 성공");
-      router.navigate("/board");
+
+      const username_store = await loadUsername();
+
+      if (username_store === null) {
+        saveUsername(username);
+        router.navigate("/board");
+      }
     } else {
-      console.log("로그인에 실패했습니다");
+      console.error("로그인에 실패했습니다");
     }
   };
+
+  const isLogin = async () => {
+    const AsyncItemUsername = await loadUsername();
+
+    AsyncItemUsername !== null && router.navigate("/board");
+  };
+
+  useEffect(() => {
+    isLogin();
+  });
 
   return (
     <View style={styles.loginWrap}>

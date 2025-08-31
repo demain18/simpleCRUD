@@ -12,9 +12,15 @@ export default function GnbLogo({ ...rest }: Props) {
     <TouchableOpacity
       style={styles.logoWrap}
       onPress={() => {
-        routeName === "board" || router.push("/board");
+        routeName === "board" || router.back();
       }}
     >
+      {routeName === "board" || (
+        <Image
+          style={styles.logoImg}
+          source={require("@/assets/images/back.png")}
+        />
+      )}
       <Image
         style={styles.logoImg}
         source={require("@/assets/images/logo.png")}
@@ -31,11 +37,11 @@ const styles = StyleSheet.create({
     flexWrap: "nowrap",
     flexDirection: "row",
     alignItems: "center",
-    gap: 7,
   },
   logoImg: {
     width: 20,
     height: 20,
+    marginRight: 7,
   },
   logoText: {
     fontSize: 16,
