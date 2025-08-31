@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 
 // const key: string = process.env.EXPO_PUBLIC_API_KEY!;
-const supabase = createClient(
+export const supabase = createClient(
   "https://dlfqevhpjinkmluhnxfv.supabase.co",
   //   process.env.EXPO_PUBLIC_API_KEY! <= .env 값 가져오는거 시점이 달라서 그런건지 await이라서 로드시점이 다른지 오류 오지게 나서 임시로 key값 그냥 가져옴
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRsZnFldmhwamlua21sdWhueGZ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY0NzIyNDAsImV4cCI6MjA3MjA0ODI0MH0.rzHslwRFJmZWuXIwDiYv8qEtQG_4KJw-w7GljeWZGR0"
@@ -24,12 +24,14 @@ export interface readPostDto {
   uploader: string;
   title: string;
   desc: string;
+  imgUri: string;
 }
 
 export interface insertPostDto {
   uploader: string;
   title: string;
   desc: string;
+  imgUri: string;
 }
 
 export const getAllUsers = async () => {

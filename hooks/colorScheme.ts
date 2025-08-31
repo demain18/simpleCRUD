@@ -10,3 +10,8 @@ export const colors = {
   whiteGray: "#f8f8f8",
   alertRed: "#bc0000",
 };
+
+export const tempValues = {
+  placeholderImg:
+    "https://dlfqevhpjinkmluhnxfv.supabase.co/storage/v1/object/public/post_images/placeholder.jpg",
+};

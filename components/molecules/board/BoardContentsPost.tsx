@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     paddingRight: 16,
     paddingBottom: 16,
     paddingLeft: 16,
+    gap: 3,
   },
   contentTitle: {
     color: colors.black,

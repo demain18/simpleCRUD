@@ -27,3 +27,7 @@ export const loadUsername = async () => {
     console.error(e);
   }
 };
+
+export const removeLinebreaks = (text: string) => {
+  return text.replace(/[\r\n]+/gm, " ");
+};

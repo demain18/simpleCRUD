@@ -2,6 +2,7 @@ import StyledButton from "@/components/atoms/StyledButton";
 import PostContentsBody from "@/components/molecules/post/PostContentsBody";
 import PostContentsHeader from "@/components/molecules/post/PostContentsHeader";
 import { getPost, readPostDto } from "@/hooks/apiRequest";
+import { tempValues } from "@/hooks/colorScheme";
 import { loadUsername } from "@/hooks/customHooks";
 import { useFocusEffect } from "@react-navigation/native";
 import { useLocalSearchParams } from "expo-router";
@@ -48,7 +49,7 @@ export default function PostContents({ ...rest }: Props) {
         />
         <PostContentsBody
           desc={postData?.desc}
-          imgsrc="https://dlfqevhpjinkmluhnxfv.supabase.co/storage/v1/object/public/post_images/placeholder.jpg"
+          imgsrc={postData?.imgUri || tempValues.placeholderImg}
         />
       </View>
       {deleteBtn && (
@@ -63,12 +64,13 @@ export default function PostContents({ ...rest }: Props) {
 const styles = StyleSheet.create({
   scrollView: {
     justifyContent: "center",
+    paddingBottom: 30,
   },
   contentWrap: {
     flex: 1,
     paddingTop: 24,
     paddingRight: 16,
-    paddingBottom: 20,
+    paddingBottom: 15,
     paddingLeft: 16,
   },
   deleteBtnWrap: {

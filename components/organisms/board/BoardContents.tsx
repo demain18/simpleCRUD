@@ -1,5 +1,7 @@
 import BoardContentsPost from "@/components/molecules/board/BoardContentsPost";
 import { getAllPosts, readPostDto } from "@/hooks/apiRequest";
+import { tempValues } from "@/hooks/colorScheme";
+import { removeLinebreaks } from "@/hooks/customHooks";
 import { useFocusEffect } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { Text, View, StyleSheet, FlatList } from "react-native";
@@ -23,12 +25,12 @@ export default function BoardContents({ ...rest }: Props) {
       renderItem={({ item }: { item: readPostDto }) => (
         <BoardContentsPost
           id={item.id}
-          imgsrc={
-            "https://dlfqevhpjinkmluhnxfv.supabase.co/storage/v1/object/public/post_images/placeholder.jpg"
-          }
+          imgsrc={item.imgUri || tempValues.placeholderImg}
           title={item.title}
           desc={
-            item.desc.length > 50 ? item.desc.slice(0, 50) + "..." : item.desc
+            item.desc.length > 50
+              ? removeLinebreaks(item.desc.slice(0, 50)) + "..."
+              : removeLinebreaks(item.desc)
           }
         />
       )}
