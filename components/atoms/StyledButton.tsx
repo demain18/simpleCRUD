@@ -6,6 +6,7 @@ export interface Props {
   outline?: boolean;
   fitContent?: boolean;
   height?: number;
+  red?: boolean;
   onPress?: () => void;
 }
 
@@ -14,6 +15,7 @@ export default function StyledButton({
   outline,
   fitContent,
   height = 48,
+  red,
   onPress,
   ...rest
 }: Props) {
@@ -23,6 +25,7 @@ export default function StyledButton({
         styles.button,
         outline && styles.outlineButton,
         fitContent && styles.fitButton,
+        red && styles.redButton,
         { height: height },
       ]}
       onPress={onPress}
@@ -74,5 +77,8 @@ const styles = StyleSheet.create({
   },
   outlineText: {
     color: colors.black,
+  },
+  redButton: {
+    backgroundColor: colors.alertRed,
   },
 });

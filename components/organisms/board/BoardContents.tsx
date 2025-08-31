@@ -1,25 +1,26 @@
 import BoardContentsPost from "@/components/molecules/board/BoardContentsPost";
-import { getAllPosts, postDataDto } from "@/hooks/apiRequest";
+import { getAllPosts, readPostDto } from "@/hooks/apiRequest";
+import { useFocusEffect } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { Text, View, StyleSheet, FlatList } from "react-native";
 
 export interface Props {}
 
 export default function BoardContents({ ...rest }: Props) {
-  const [postData, setPostData] = useState<postDataDto[] | void>([]);
+  const [postData, setPostData] = useState<readPostDto[] | void>([]);
 
-  useEffect(() => {
+  useFocusEffect(() => {
     (async () => {
       const data = await getAllPosts();
       setPostData(data);
     })();
-  }, []);
+  });
 
   return (
     <FlatList
       style={styles.postListWrap}
       data={postData!}
-      renderItem={({ item }: { item: postDataDto }) => (
+      renderItem={({ item }: { item: readPostDto }) => (
         <BoardContentsPost
           id={item.id}
           imgsrc={

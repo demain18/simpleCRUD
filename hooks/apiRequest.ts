@@ -18,9 +18,15 @@ export interface checkUserExistDto {
   password: string;
 }
 
-export interface postDataDto {
+export interface readPostDto {
   id: number;
   created_at: string;
+  uploader: string;
+  title: string;
+  desc: string;
+}
+
+export interface insertPostDto {
   uploader: string;
   title: string;
   desc: string;
@@ -49,13 +55,22 @@ export const checkUserExist = async (loginData: checkUserExistDto) => {
 };
 
 export const getAllPosts = async () => {
-  const { data, error } = await supabase.from("posts").select("*");
+  const { data, error } = await supabase
+    .from("posts")
+    .select("*")
+    .order("created_at", { ascending: false });
 
   return error ? console.error(error) : (data as []);
 };
 
 export const getPost = async (id: string) => {
   const { data, error } = await supabase.from("posts").select("*").eq("id", id);
+
+  return error ? console.error(error) : data;
+};
+
+export const insertPost = async (postdata: insertPostDto) => {
+  const { data, error } = await supabase.from("posts").insert(postdata);
 
   return error ? console.error(error) : data;
 };

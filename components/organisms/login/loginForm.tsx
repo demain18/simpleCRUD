@@ -34,9 +34,9 @@ export default function LoginForm({ children, ...rest }: Props) {
     if (Array.isArray(res) && res.length > 0) {
       console.log("로그인 성공");
 
-      const username_store = await loadUsername();
+      const usernameAsync = await loadUsername();
 
-      if (username_store === null) {
+      if (usernameAsync === null) {
         saveUsername(username);
         router.navigate("/board");
       }
@@ -46,9 +46,9 @@ export default function LoginForm({ children, ...rest }: Props) {
   };
 
   const isLogin = async () => {
-    const AsyncItemUsername = await loadUsername();
+    const usernameAsync = await loadUsername();
 
-    AsyncItemUsername !== null && router.navigate("/board");
+    usernameAsync !== null && router.navigate("/board");
   };
 
   useEffect(() => {

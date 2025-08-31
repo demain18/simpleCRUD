@@ -1,6 +1,9 @@
+import StyledButton from "@/components/atoms/StyledButton";
 import PostContentsBody from "@/components/molecules/post/PostContentsBody";
 import PostContentsHeader from "@/components/molecules/post/PostContentsHeader";
-import { getPost, postDataDto } from "@/hooks/apiRequest";
+import { getPost, readPostDto } from "@/hooks/apiRequest";
+import { loadUsername } from "@/hooks/customHooks";
+import { useFocusEffect } from "@react-navigation/native";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { Text, View, StyleSheet, ScrollView } from "react-native";
@@ -10,21 +13,31 @@ export interface Props {}
 export default function PostContents({ ...rest }: Props) {
   const { id } = useLocalSearchParams<{ id: string }>();
 
-  const [postData, setPostData] = useState<postDataDto | null>(null);
+  const [postData, setPostData] = useState<readPostDto | null>(null);
+  const [deleteBtn, setDeleteBtn] = useState(false);
 
-  useEffect(() => {
-    (async () => {
-      const data = await getPost(id);
+  const getPostData = async () => {
+    const data = await getPost(id);
 
-      if (Array.isArray(data) && data.length > 0) {
-        setPostData(data[0]);
-      } else {
-        setPostData(null);
-      }
+    if (Array.isArray(data) && data.length > 0) {
+      setPostData(data[0]);
+    } else {
+      setPostData(null);
+    }
+  };
 
-      // console.log(postData);
-    })();
-  }, []);
+  const checkUploader = async () => {
+    const usernameAsync = await loadUsername();
+
+    if (String(postData?.uploader) === usernameAsync) {
+      setDeleteBtn(true);
+    }
+  };
+
+  useFocusEffect(() => {
+    getPostData();
+    checkUploader();
+  });
   return (
     <ScrollView contentContainerStyle={styles.scrollView}>
       <View style={styles.contentWrap}>
@@ -38,6 +51,11 @@ export default function PostContents({ ...rest }: Props) {
           imgsrc="https://dlfqevhpjinkmluhnxfv.supabase.co/storage/v1/object/public/post_images/placeholder.jpg"
         />
       </View>
+      {deleteBtn && (
+        <View style={styles.deleteBtnWrap}>
+          <StyledButton text="Delete Post" height={35} fitContent red />
+        </View>
+      )}
     </ScrollView>
   );
 }
@@ -50,7 +68,11 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 24,
     paddingRight: 16,
-    paddingBottom: 24,
+    paddingBottom: 20,
+    paddingLeft: 16,
+  },
+  deleteBtnWrap: {
+    paddingRight: 16,
     paddingLeft: 16,
   },
 });

@@ -2,7 +2,7 @@ import BoardContentsPost from "@/components/molecules/board/BoardContentsPost";
 import BoardWrite from "@/components/molecules/board/BoardWrite";
 import BoardContents from "@/components/organisms/board/BoardContents";
 import Gnb from "@/components/organisms/gnb/Gnb";
-import { getAllPosts, postDataDto } from "@/hooks/apiRequest";
+import { getAllPosts, readPostDto } from "@/hooks/apiRequest";
 import { colors } from "@/hooks/colorScheme";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";

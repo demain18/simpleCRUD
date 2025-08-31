@@ -8,4 +8,5 @@ export const colors = {
   primary: "#96c560",
   bgGray: "#F0F0F0",
   whiteGray: "#f8f8f8",
+  alertRed: "#bc0000",
 };

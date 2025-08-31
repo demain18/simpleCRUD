@@ -1,7 +1,10 @@
 import Form from "@/components/atoms/Form";
 import StyledButton from "@/components/atoms/StyledButton";
 import Gnb from "@/components/organisms/gnb/Gnb";
+import { insertPost, insertPostDto } from "@/hooks/apiRequest";
 import { colors } from "@/hooks/colorScheme";
+import { loadUsername } from "@/hooks/customHooks";
+import { router } from "expo-router";
 import { useState } from "react";
 import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
 
@@ -19,7 +22,16 @@ export default function WritePost({ ...rest }: Props) {
     setDesc(text);
   };
 
-  const handleSave = async () => {};
+  const handleSave = async () => {
+    const uploader = (await loadUsername()) ?? "";
+
+    if (uploader !== null) {
+      const postData: insertPostDto = { uploader, title, desc };
+      insertPost(postData);
+
+      router.navigate("/board");
+    }
+  };
 
   return (
     <View style={styles.formWrap}>
@@ -39,7 +51,7 @@ export default function WritePost({ ...rest }: Props) {
         fill
       />
       <View style={styles.saveBtnWrap}>
-        <StyledButton text="Save" height={48} />
+        <StyledButton text="Save" height={48} onPress={handleSave} />
       </View>
     </View>
   );
