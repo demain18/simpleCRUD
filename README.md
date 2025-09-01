@@ -1,8 +1,10 @@
-## 할일
+## 적용 기술
 
-- 이미지 업로드 구현하기 (완성)
-- 댓글 구현하기
-- 삭제 기능 구현하기 (포기)
-- 보안 처리하기 sql부분 (포기)
-- env 안되던 건 해결하고 github repo public으로 돌리기 (env는 해결함)
-- readme 문서 작성하기
+- React Native
+- Typescript
+- Expo
+- Supabase
+
+## 아키텍처
+
+- 컴포넌트 계층에 Atomic Component(아토믹 컴포넌트) 방법론을 적용하여 중복되는 컴포넌트를 최소한으로 줄임
