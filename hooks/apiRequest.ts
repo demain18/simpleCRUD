@@ -34,6 +34,18 @@ export interface insertPostDto {
   imgUri: string;
 }
 
+export interface readCommentsDto {
+  uploader: string;
+  desc: string;
+  post_id: number;
+}
+
+export interface insertCommentDto {
+  id: string;
+  uploader: string | null | undefined;
+  desc: string;
+}
+
 export const getAllUsers = async () => {
   const { data, error } = await supabase.from("users").select("*");
 
@@ -75,4 +87,24 @@ export const insertPost = async (postdata: insertPostDto) => {
   const { data, error } = await supabase.from("posts").insert(postdata);
 
   return error ? console.error(error) : data;
+};
+
+export const getComments = async (postId: string) => {
+  const { data, error } = await supabase
+    .from("comments")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .eq("posts_id", postId);
+
+  return error ? console.error(error) : data;
+};
+
+export const insertComment = async (commmentData: insertCommentDto) => {
+  const { data, error } = await supabase.from("comments").insert({
+    posts_id: commmentData.id,
+    uploader: commmentData.uploader,
+    desc: commmentData.desc,
+  });
+
+  return error ? console.error(error) : commmentData;
 };

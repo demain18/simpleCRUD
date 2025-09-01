@@ -1,25 +1,64 @@
 import Form from "@/components/atoms/Form";
 import StyledButton from "@/components/atoms/StyledButton";
 import PostCommentsBox from "@/components/molecules/post/PostCommentsBox";
+import {
+  getComments,
+  insertComment,
+  insertCommentDto,
+  readCommentsDto,
+} from "@/hooks/apiRequest";
 import { colors } from "@/hooks/colorScheme";
-import { StyleSheet, Text, View } from "react-native";
+import { getRouteName, loadUsername } from "@/hooks/customHooks";
+import { useLocalSearchParams } from "expo-router";
+import { useEffect, useState } from "react";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 
 export interface Props {}
 
-// join걸어야 하는 작업이라 제일 마지막에 구현
 export default function PostComments({ ...rest }: Props) {
+  const routeName = getRouteName();
+  const [commentsData, setCommentsData] = useState<readCommentsDto[] | void>(
+    []
+  );
+  const [desc, setDesc] = useState<string>("");
+  const [empty, setEmpty] = useState<string>("");
+  const { id } = useLocalSearchParams<{ id: string }>();
+
+  const getCommentsData = async () => {
+    const data = await getComments(id);
+    setCommentsData(data);
+  };
+
+  const handleDesc = (text: string) => {
+    setDesc(text);
+  };
+
+  const handleSubmit = async () => {
+    const uploader = await loadUsername();
+    const commentData: insertCommentDto = { id, uploader, desc };
+    await insertComment(commentData);
+    const data = await getComments(id);
+    setCommentsData(data);
+  };
+
+  useEffect(() => {
+    getCommentsData();
+  }, []);
+
   return (
     <View style={styles.mainWrap}>
       <Text style={styles.headerText}>Comments</Text>
       <View style={styles.writeWrap}>
-        <Form placeholder="Add a comment..." flex />
-        <StyledButton text="Submit" fitContent />
+        <Form placeholder="Add a comment..." onChangeText={handleDesc} flex />
+        <StyledButton text="Submit" onPress={handleSubmit} fitContent />
       </View>
-      <View style={styles.commentsWrap}>
-        <PostCommentsBox text="user1: test comment 1" />
-        <PostCommentsBox text="user2: test comment 2" />
-        <PostCommentsBox text="user3: test comment 3" />
-      </View>
+      <FlatList
+        style={styles.commentsWrap}
+        data={commentsData!}
+        renderItem={({ item }: { item: readCommentsDto }) => (
+          <PostCommentsBox text={`${item.uploader}: ${item.desc}`} />
+        )}
+      ></FlatList>
     </View>
   );
 }
@@ -58,7 +97,6 @@ const styles = StyleSheet.create({
     gap: 5,
   },
   commentsWrap: {
-    rowGap: 4,
     marginTop: 10,
   },
 });
