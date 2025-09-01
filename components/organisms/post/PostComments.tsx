@@ -58,6 +58,7 @@ export default function PostComments({ ...rest }: Props) {
         renderItem={({ item }: { item: readCommentsDto }) => (
           <PostCommentsBox text={`${item.uploader}: ${item.desc}`} />
         )}
+        scrollEnabled={false}
       ></FlatList>
     </View>
   );
